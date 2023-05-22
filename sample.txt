@@ -1,0 +1,1 @@
+{"problemStatement" : "Print 2 times the Given Number","problemInputFormat" : "N","problemOutputFormat" : "2*N","problemConstraint" : "0<=N<=10","timeLimit" : 1,"sampleTestCase" : {"input": 2, "output": 4},"author": ["vkm41101"],"tags": ["greedy"]}
