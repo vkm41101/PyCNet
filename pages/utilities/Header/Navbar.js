@@ -12,7 +12,7 @@ export default function Navbar({activePage})
         <div className="w-screen bg-[#000000]">
             <ul>
                 {links.map((data) => {
-                    var className="inline-flex py-2 px-2 bg-[#000000] hover:bg-[#bbbbbb] text-[#ffffff] font-bold";
+                    var className ="inline-flex py-2 px-2 bg-[#000000] hover:bg-[#bbbbbb] text-[#ffffff] hover:text-[#000000] font-bold";
                     if(data.display===activePage)
                     {
                         className ="inline-flex py-2 px-2 bg-[#bbbbbb] text-[#000000] font-bold"

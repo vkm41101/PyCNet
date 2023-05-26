@@ -8,8 +8,8 @@ export default async function respond(req, res)
     if(req.method === 'POST')
     {
         // POST a question
-        let data = req.body;
-        console.log(data);
+        let data = JSON.parse(req.body);
+        console.log(data.problemName);
         var problemID=new Date().getTime().toString(16);
         const problem = new problemObject({
             problemID : problemID,
@@ -23,6 +23,7 @@ export default async function respond(req, res)
             author: data.author,
             tags: data.tags
         });
+        console.log(problem);
         await problem.save();
         res.status(200).json({"problemID" : problem.problemID});
     }
