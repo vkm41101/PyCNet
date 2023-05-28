@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.1",
+    "@nextui-org/react": "^1.0.0-beta.13",
     "mongoose": "^7.1.0",
     "next": "^13.4.1",
     "react": "^18.2.0",

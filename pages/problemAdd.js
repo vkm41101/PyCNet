@@ -1,20 +1,100 @@
 import Header from "./utilities/Header/Header"
 import monaco,{ Editor, DiffEditor, useMonaco, loader } from "@monaco-editor/react"
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { Button, Dropdown } from "@nextui-org/react"
+import Heading from "./utilities/Heading/Heading"
 
-function Heading({value})
+function AddDropdown({list, onClickFunction})
 {
-    return (<text className="mx-10 font-bold text-[#555555] text-2xl">{value}</text>);
+    return(
+        <>
+            <Dropdown>
+                <Dropdown.Button className="mx-auto" flat>Add Tag</Dropdown.Button>
+                <Dropdown.Menu aria-label="Tags" items={list}>
+                    {(item) => (
+                        <Dropdown.Item
+                            key={item.name}
+                            color="default"
+                        >
+                            <button onClick={click=>onClickFunction(item.name)}>
+                                {item.name}
+                            </button>
+                        </Dropdown.Item>
+                    )}
+                </Dropdown.Menu>
+            </Dropdown>
+        </>
+    );
 }
 
 
 
 export default function main()
 {
+    
     let editorArr = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+
+
+    const PossibleTags=[
+        { name:"Greedy" }, 
+        { name:"Dynamic Programming" }, 
+        { name:"Disjoint Set Union" },
+        { name: "2-SAT" },
+        { name: "Binary Search" },
+        { name: "Bitmasks" },
+        { name: "Brute Force" },
+        { name: "Chinese Remainder Theorem" },
+        { name: "Combinatorics" },
+        { name: "Constructive Algorithms" },
+        { name: "Data Structures" },
+        { name: "Stacks and Queues" },
+        { name: "DFS and Similar" },
+        { name: "Divide and Conquer" },
+        { name: "Expression Parsing" },
+        { name: "Fast Fourier Transform" },
+        { name: "Flows" },
+        { name: "Game Theory" },
+        { name: "Computational Geometry" },
+        { name: "Graph Matchings" },
+        { name: "Graphs" },
+        { name: "Hashing" },
+        { name: "Implementation" },
+        { name: "Interactive" },
+        { name: "Maths" },
+        { name: "Matrices" },
+        { name: "Meet in the Middle" },
+        { name: "Number Theory" },
+        { name: "Probabilities" },
+        { name: "Schedules" },
+        { name: "Shortest Paths" },
+        { name: "Sortings" },
+        { name: "String Suffix Structures" },
+        { name: "Strings" },
+        { name: "Ternary Search" },
+        { name: "Trees" },
+        { name: "Two pointers" },
+    ];
+
+    function compare(a, b) {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
+
+    PossibleTags.sort(compare);
+
+    const [tags, setTags] = useState([]);
+
+    const dropdownButtonClick = tagName =>
+    {
+        setTags([...tags, tagName]);
+    }
     async function tryat()
     {
-        // alert(editorArr[6].current.getValue());
         let problem = {
             problemName: editorArr[6].current.getValue(),
             problemStatement: editorArr[0].current.getValue(),
@@ -27,7 +107,7 @@ export default function main()
                 output: editorArr[5].current.getValue()
             },
             author: [""],
-            tags: []
+            tags: tags
         }; 
 
         let response = await fetch("http://localhost:3000/api/problem",{
@@ -103,6 +183,20 @@ export default function main()
                         />
                     </div>
                 </div>
+                <div className="w-screen ">
+                    <ul className="m-auto">
+                        {tags.map((item)=>{
+                            return(
+                            <>
+                                <li className="inline">
+                                    <span className="bg-[#bbbbbb] rounded p-1 m-2">{item}</span>
+                                </li>
+                            </>
+                            );
+                        })}
+                    </ul><br/>
+                    <AddDropdown list={PossibleTags} onClickFunction={dropdownButtonClick} />
+                </div>
                 <div className="w-screen">
                     <button 
                         type="submit" 
@@ -110,6 +204,7 @@ export default function main()
                         onClick={tryat}
                  >Submit</button>
                 </div>
+                
             </div>
         </>
     )
