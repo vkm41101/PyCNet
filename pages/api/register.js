@@ -9,8 +9,9 @@ export default async function respond(req, res)
     if(req.method==='POST')
     {
         console.log(req.body);
-        let data=req.body;
-        userObject.findOne({emailID: data.emailID}).then(async (dataf)=>{
+        let datar=JSON.parse(req.body);
+
+        userObject.findOne({emailID: datar.emailID}).then(async (dataf)=>{
             if (dataf!=null)
             {
                 let response = {
@@ -24,12 +25,12 @@ export default async function respond(req, res)
                 let userid = new Date().getTime().toString(16);
                 let user = new userObject({
                     userID: userid,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    emailID: data.emailID,
-                    password: ((string) => { return createHash('sha256').update(string).digest('hex') })(data.password),
-                    codechefID: data.codechefID,
-                    codeforcesID: data.codeforcesID,
+                    firstName: datar.firstName,
+                    lastName: datar.lastName,
+                    emailID: datar.emailID,
+                    password: ((string) => { return createHash('sha256').update(string).digest('hex') })(datar.password),
+                    codechefID: datar.codechefID,
+                    codeforcesID: datar.codeforcesID,
                     questionsSolved: []
                 })
                 console.log(user);

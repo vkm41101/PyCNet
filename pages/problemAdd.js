@@ -106,7 +106,7 @@ export default function main()
                 input: editorArr[4].current.getValue(),
                 output: editorArr[5].current.getValue()
             },
-            author: [""],
+            author: [],
             tags: tags
         }; 
 
