@@ -4,13 +4,12 @@ import Header from "./utilities/Header/Header";
 import {useRouter} from 'next/navigation';
 import React, { useState } from "react";
 
-
+let firstName = "", lastName = "", password = "", CC = "", CF = "";
 
 export default function register()
 {
     const Router = useRouter();
-    let firstName="", lastName="", password="", CC="", CF="";
-    let [valuee, setValuee] = useState("");
+    let [valuee, setValuee]=useState("");
     const validateEmail = (value) => {
         return value.match(/^[A-Z]+.+[A-Z]+.+[A-Z0-9]+@iiitbh.ac.in$/i);
     };
@@ -44,7 +43,7 @@ export default function register()
             let newUser={
                 firstName: firstName,
                 lastName: lastName,
-                emailID: value,
+                emailID: valuee.toLowerCase(),
                 password: ((string)=>{return createHash('sha256').update(string).digest('hex')})(password),
                 codechefID: CC,
                 codeforcesID: CF
@@ -54,7 +53,7 @@ export default function register()
                 mode: "cors",
                 body: JSON.stringify(newUser)
             });
-            if (response.status==400)
+            if (response.status==405)
             {
                 alert("The Email ID Entry already Exists");
                 Router.push('/login');

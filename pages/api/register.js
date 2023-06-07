@@ -15,10 +15,10 @@ export default async function respond(req, res)
             if (dataf!=null)
             {
                 let response = {
-                    statusCode: 400,
+                    statusCode: 405,
                     message: "User Already Exists"
                 }
-                res.status(400).end(JSON.stringify(response));
+                res.status(405).end(JSON.stringify(response));
             }
             else
             {
@@ -42,5 +42,12 @@ export default async function respond(req, res)
                 res.status(200).end(JSON.stringify(response));
             }
         });
+    }
+    else {
+        let response = {
+            statusCode: 400,
+            message: "Bad Request"
+        }
+        res.status(400).end(JSON.stringify(response));
     }
 }
